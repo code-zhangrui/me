@@ -450,7 +450,7 @@ body {
     position: relative;
     overflow: auto;
     font-weight: bold;
-    height: 627px;
+    height: 680px;
 }
 
 .footer-theme-left {
@@ -516,7 +516,17 @@ body {
     padding: 10px;
     margin-left: -3px;
 }
-
+.contact-r a{
+  color: rgb(242, 60, 242);
+  font-size:20px;
+  line-height:20px;
+  margin: 0 10px;
+  transition: 0.8s;
+}
+.contact-r a:hover{
+  background: rgb(242, 60, 242);
+  color: #fff2e3;
+}
 
 /* services悬浮 */
 
