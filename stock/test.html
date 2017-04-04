@@ -97,16 +97,19 @@ var DQSpic2="http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Index.a
 
 function showMeTheMoney(){
     var DataNameCopy=DataDQS||DataNSDK;
+
 console.log('我是DataNameCopy'+DataNameCopy);
+var obj = DataNameCopy; 
+obj = function obj(){ return obj; };
+console.log("obj.name is: " + obj.name);
+
+
+
     var sMark='DQS';
     if(!DataNameCopy){return;} 
     var refreshTime = 10000;  
     
     var nameData = DataNameCopy.quotation[0].split(",");  
-console.log('我是DataNameCopy.quotation'+DataNameCopy.quotation);
-console.log('我是nameData'+nameData);
-
-
     var nameOpen = nameData[4];  
     var nameLow = nameData[7];  
     var nameHigh = nameData[6];  
