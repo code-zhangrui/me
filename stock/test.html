@@ -1,7 +1,7 @@
 <!DOCTYPE html>  
 <html>  
 <head>  
-    <title>财经数据汇总</title>  
+    <title>张睿的看盘器</title>  
     <meta charset='UTF-8'>  
     <script src="//code.jquery.com/jquery-2.1.1.min.js"></script> 
     <style>
@@ -9,7 +9,9 @@
             background: black;
         }
         .ul{
-            margin:0 aoto;
+            margin:20px 100px;
+            padding: 10px 0;
+            min-height:200px;
             background: #fff2e3;
         }
         .li_de_pic{
@@ -44,10 +46,36 @@
                     </div>  
                  
                 <!--道琼斯End--> 
+                <!--纳斯达克Start-->  
+                 
+                    <div class='ul bgWhite'> 
+                        <div class='li_de_pic'>  
+                            <img class='smallPic NSDKpicTime' />  
+                        </div>  
+                        <div class='li_de_pic'>  
+                            <img class='smallPic NSDKpicDay' />  
+                        </div>  
+                        <div class='clear'></div>  
+
+                        <div class='li_t1_1'>纳斯达克：</div>  
+                        <div class='li_d1_1 NSDKnowN'>--.--</div>  
+                        <div class='li_d1_1 NSDKnowV'>--.--</div>  
+                        <div class='li_d1_1 NSDKnowP'>--.--%</div>  
+                        <div class='clear'></div>  
+                         
+                        <div class='li_de_t NSDKnowO'>--.--</div>  
+                        <div class='li_de_t NSDKnowL'>--.--</div>  
+                        <div class='li_de_t NSDKnowH'>--.--</div>  
+                        <div class='li_de_t NSDKnowYC'>--.--</div>  
+                        <div class='clear'></div>   
+                    </div>  
+                 
+                <!--纳斯达克End--> 
 
 <script>
 function getData(){   
         loadScript('AjaxDataDQS',AjaxDataDQSUrl,showAjaxDataDQS);  
+        loadScript('AjaxDataNSDK',AjaxDataNSDKUrl,showAjaxDataNSDK); 
 } 
 
 $(function(){  
@@ -61,6 +89,7 @@ function loadScript(id,url,callBack){
 } 
 
 var AjaxDataDQSUrl = 'http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?jsName=DataDQS&reference=rtj&type=f&id=INDU7'; 
+var AjaxDataNSDKUrl = 'http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?jsName=DataNSDK&reference=rtj&type=f&id=CCMP7'; 
 
 function showAjaxDataDQS(){  
     if(!DataDQS){return;}  
@@ -99,6 +128,43 @@ function showAjaxDataDQS(){
     $('.DQSpicTime').attr("src","http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Picture/INDU7Rs.png?dt="+new Date().getTime());  
     $('.DQSpicDay').attr("src","http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Index.aspx?imagetype=KS&id=INDU7&UnitWidth=&Reference=xml&dt="+new Date().getTime());         
 } 
+
+function showAjaxDataNSDK(){  
+    if(!DataNSDK){return;}  
+    var refreshTime = 10000;  
+    /*纳斯达克Start*/  
+    var NSDKData = DataNSDK.quotation[0].split(",");  
+    var NSDKOpen = NSDKData[4];  
+    var NSDKLow = NSDKData[7];  
+    var NSDKHigh = NSDKData[6];  
+    var NSDKNow = NSDKData[5];  
+    var NSDKYClose = NSDKData[3];  
+    var NSDKClass = NSDKNow>NSDKYClose?"colorRed":(NSDKNow<NSDKYClose?"colorGreen":"colorGray");  
+    var NSDKOClass = NSDKOpen>NSDKYClose?"colorRed":(NSDKOpen<NSDKYClose?"colorGreen":"colorGray");  
+    var NSDKLClass = NSDKLow>NSDKYClose?"colorRed":(NSDKLow<NSDKYClose?"colorGreen":"colorGray");  
+    var NSDKHClass = NSDKHigh>NSDKYClose?"colorRed":(NSDKHigh<NSDKYClose?"colorGreen":"colorGray");  
+    $('.NSDKnowO').html("开盘： <font class='bold "+NSDKOClass+"'>"+NSDKOpen+"</font>");  
+    $('.NSDKnowL').html("最低： <font class='bold "+NSDKLClass+"'>"+NSDKLow+"</font>");  
+    $('.NSDKnowH').html("最高： <font class='bold "+NSDKHClass+"'>"+NSDKHigh+"</font>");  
+    $('.NSDKnowYC').html("昨收： <font class='bold colorGray'>"+NSDKYClose+"</font>");  
+    $('.NSDKnowN').html("现价： <font class='bold "+NSDKClass+"'>"+NSDKNow+"</font>");  
+    $('.NSDKnowV').html(  
+        "涨跌额： <font class='bold "+NSDKClass+"'>"  
+        +Math.round((NSDKNow-NSDKYClose)*100)/100  
+        +"</font>"  
+    );  
+    $('.NSDKnowP').html(  
+        "涨跌幅： <font class='bold "+NSDKClass+"'>"  
+        +Math.round(((NSDKNow-NSDKYClose)/NSDKYClose*100)*100)/100  
+        + " %"+"</font>"  
+    );  
+    /*纳斯达克End*/  
+    //setTimeout(loadScript('AjaxDataNSDK',AjaxDataNSDKUrl,showAjaxDataNSDK),refreshTime);  
+    // img data  
+    /*纳斯达克*/  
+    $('.NSDKpicTime').attr("src","http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Picture/CCMP7Rs.png?dt="+new Date().getTime());  
+    $('.NSDKpicDay').attr("src","http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Index.aspx?imagetype=KS&id=CCMP7&UnitWidth=&Reference=xml&dt="+new Date().getTime());  
+}  
 </script>
 </body>
 </html>
