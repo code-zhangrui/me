@@ -76,7 +76,7 @@
 function getData(){   
         // loadScript('AjaxDataDQS',AjaxDataDQSUrl,showAjaxDataDQS);  
         loadScript('AjaxDataNSDK',AjaxDataNSDKUrl,showAjaxDataNSDK); 
-        loadScript('AjaxDataDQS',AjaxDataDQSUrl,showMeTheMoney(DataDQS)); 
+        loadScript('AjaxDataDQS',AjaxDataDQSUrl,showMeTheMoney); 
 } 
 
 $(function(){  
@@ -93,8 +93,8 @@ var AjaxDataDQSUrl = 'http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplicatio
 var AjaxDataNSDKUrl = 'http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?jsName=DataNSDK&reference=rtj&type=f&id=CCMP7'; 
 
 
-function showMeTheMoney(DataName){
-    var DataNameCopy=DataName;
+function showMeTheMoney(){
+    var DataNameCopy=DataDQS||DataNSDK;
     if(!DataNameCopy){return;} 
     var refreshTime = 10000;  
     
