@@ -99,11 +99,11 @@ function showMeTheMoney(){
     var refreshTime = 10000;  
     
     var nameData = DataNameCopy.quotation[0].split(",");  
-    var nameOpen = DataNameCopy[4];  
-    var nameLow = DataNameCopy[7];  
-    var nameHigh = DataNameCopy[6];  
-    var nameNow = DataNameCopy[5];  
-    var nameYClose = DataNameCopy[3];  
+    var nameOpen = nameData[4];  
+    var nameLow = nameData[7];  
+    var nameHigh = nameData[6];  
+    var nameNow = nameData[5];  
+    var nameYClose = nameData[3];  
     var nameClass = nameNow>nameYClose?"colorRed":(nameNow<nameYClose?"colorGreen":"colorGray");  
     var nameOClass = nameOpen>nameYClose?"colorRed":(nameOpen<nameYClose?"colorGreen":"colorGray");  
     var nameLClass = nameLow>nameYClose?"colorRed":(nameLow<nameYClose?"colorGreen":"colorGray");  
