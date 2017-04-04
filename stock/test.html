@@ -74,8 +74,9 @@
 
 <script>
 function getData(){   
-        loadScript('AjaxDataDQS',AjaxDataDQSUrl,showAjaxDataDQS);  
+        // loadScript('AjaxDataDQS',AjaxDataDQSUrl,showAjaxDataDQS);  
         loadScript('AjaxDataNSDK',AjaxDataNSDKUrl,showAjaxDataNSDK); 
+        loadScript('AjaxDataDQS',AjaxDataDQSUrl,showMeTheMoney(DataDQS)); 
 } 
 
 $(function(){  
@@ -90,6 +91,41 @@ function loadScript(id,url,callBack){
 
 var AjaxDataDQSUrl = 'http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?jsName=DataDQS&reference=rtj&type=f&id=INDU7'; 
 var AjaxDataNSDKUrl = 'http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?jsName=DataNSDK&reference=rtj&type=f&id=CCMP7'; 
+
+
+function showMeTheMoney(DataName){
+    var DataNameCopy=DataName;
+    if(!DataNameCopy){return;} 
+    var refreshTime = 10000;  
+    
+    var nameData = DataNameCopy.quotation[0].split(",");  
+    var nameOpen = DataNameCopy[4];  
+    var nameLow = DataNameCopy[7];  
+    var nameHigh = DataNameCopy[6];  
+    var nameNow = DataNameCopy[5];  
+    var nameYClose = DataNameCopy[3];  
+    var nameClass = nameNow>nameYClose?"colorRed":(nameNow<nameYClose?"colorGreen":"colorGray");  
+    var nameOClass = nameOpen>nameYClose?"colorRed":(nameOpen<nameYClose?"colorGreen":"colorGray");  
+    var nameLClass = nameLow>nameYClose?"colorRed":(nameLow<nameYClose?"colorGreen":"colorGray");  
+    var nameHClass = nameHigh>nameYClose?"colorRed":(nameHigh<nameYClose?"colorGreen":"colorGray"); 
+    $('.DQSnowO').html("开盘： <font class='bold "+nameOClass+"'>"+nameOpen+"</font>");  
+    $('.DQSnowL').html("最低： <font class='bold "+nameLClass+"'>"+nameLow+"</font>");  
+    $('.DQSnowH').html("最高： <font class='bold "+nameHClass+"'>"+nameHigh+"</font>");  
+    $('.DQSnowYC').html("昨收： <font class='bold colorGray'>"+nameYClose+"</font>");  
+    $('.DQSnowN').html("现价： <font class='bold "+nameClass+"'>"+nameNow+"</font>");  
+    $('.DQSnowV').html(  
+        "涨跌额： <font class='bold "+nameClass+"'>"  
+        +Math.round((nameNow-nameYClose)*100)/100  
+        +"</font>"  
+    );  
+    $('.DQSnowP').html(  
+        "涨跌幅： <font class='bold "+nameClass+"'>"  
+        +Math.round(((nameNow-nameYClose)/nameYClose*100)*100)/100  
+        + " %"+"</font>"  
+    ); 
+    $('.DQSpicTime').attr("src","http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Picture/INDU7Rs.png?dt="+new Date().getTime());  
+    $('.DQSpicDay').attr("src","http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Index.aspx?imagetype=KS&id=INDU7&UnitWidth=&Reference=xml&dt="+new Date().getTime()); 
+}
 
 function showAjaxDataDQS(){  
     if(!DataDQS){return;}  
