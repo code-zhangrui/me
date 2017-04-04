@@ -76,7 +76,7 @@
 function getData(){   
         // loadScript('AjaxDataDQS',AjaxDataDQSUrl,showAjaxDataDQS);  
         loadScript('AjaxDataNSDK',AjaxDataNSDKUrl,showAjaxDataNSDK); 
-        loadScript('AjaxDataDQS',AjaxDataDQSUrl,showMeTheMoney('DQS')); 
+        loadScript('AjaxDataDQS',AjaxDataDQSUrl,showMeTheMoney); 
 } 
 
 $(function(){  
@@ -94,11 +94,10 @@ var AjaxDataNSDKUrl = 'http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplicati
 //图片数据源
 var DQSpic1="http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Picture/INDU7Rs.png?dt="+new Date().getTime();
 var DQSpic2="http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Index.aspx?imagetype=KS&id=INDU7&UnitWidth=&Reference=xml&dt="+new Date().getTime();
-//指数简写
-// var sMark='DQS';
 
-function showMeTheMoney(sMark){
+function showMeTheMoney(){
     var DataNameCopy=DataDQS||DataNSDK;
+    var sMark='DQS';
     if(!DataNameCopy){return;} 
     var refreshTime = 10000;  
     
