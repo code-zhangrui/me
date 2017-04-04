@@ -88,10 +88,12 @@ $(function(){
 function loadScript(id,url,callBack){  
     $.getScript(url+"&dt="+new Date().getTime(),callBack);  
 } 
-
+//信息数据源
 var AjaxDataDQSUrl = 'http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?jsName=DataDQS&reference=rtj&type=f&id=INDU7'; 
 var AjaxDataNSDKUrl = 'http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?jsName=DataNSDK&reference=rtj&type=f&id=CCMP7'; 
-
+//图片数据源
+var DQSpic1="http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Picture/INDU7Rs.png?dt="+new Date().getTime();
+var DQSpic2="http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Index.aspx?imagetype=KS&id=INDU7&UnitWidth=&Reference=xml&dt="+new Date().getTime();
 
 function showMeTheMoney(){
     var DataNameCopy=DataDQS||DataNSDK;
@@ -123,47 +125,47 @@ function showMeTheMoney(){
         +Math.round(((nameNow-nameYClose)/nameYClose*100)*100)/100  
         + " %"+"</font>"  
     ); 
-    $('.DQSpicTime').attr("src","http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Picture/INDU7Rs.png?dt="+new Date().getTime());  
-    $('.DQSpicDay').attr("src","http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Index.aspx?imagetype=KS&id=INDU7&UnitWidth=&Reference=xml&dt="+new Date().getTime()); 
+    $('.DQSpicTime').attr("src",DQSpic1);  
+    $('.DQSpicDay').attr("src",DQSpic2); 
 }
 
-function showAjaxDataDQS(){  
-    if(!DataDQS){return;}  
-    var refreshTime = 10000;  
-    /*道琼斯Start*/  
-    var DQSData = DataDQS.quotation[0].split(",");  
-    var DQSOpen = DQSData[4];  
-    var DQSLow = DQSData[7];  
-    var DQSHigh = DQSData[6];  
-    var DQSNow = DQSData[5];  
-    var DQSYClose = DQSData[3];  
-    var DQSClass = DQSNow>DQSYClose?"colorRed":(DQSNow<DQSYClose?"colorGreen":"colorGray");  
-    var DQSOClass = DQSOpen>DQSYClose?"colorRed":(DQSOpen<DQSYClose?"colorGreen":"colorGray");  
-    var DQSLClass = DQSLow>DQSYClose?"colorRed":(DQSLow<DQSYClose?"colorGreen":"colorGray");  
-    var DQSHClass = DQSHigh>DQSYClose?"colorRed":(DQSHigh<DQSYClose?"colorGreen":"colorGray");  
-    $('.DQSnowO').html("开盘： <font class='bold "+DQSOClass+"'>"+DQSOpen+"</font>");  
-    $('.DQSnowL').html("最低： <font class='bold "+DQSLClass+"'>"+DQSLow+"</font>");  
-    $('.DQSnowH').html("最高： <font class='bold "+DQSHClass+"'>"+DQSHigh+"</font>");  
-    $('.DQSnowYC').html("昨收： <font class='bold colorGray'>"+DQSYClose+"</font>");  
-    $('.DQSnowN').html("现价： <font class='bold "+DQSClass+"'>"+DQSNow+"</font>");  
-    $('.DQSnowV').html(  
-        "涨跌额： <font class='bold "+DQSClass+"'>"  
-        +Math.round((DQSNow-DQSYClose)*100)/100  
-        +"</font>"  
-    );  
-    $('.DQSnowP').html(  
-        "涨跌幅： <font class='bold "+DQSClass+"'>"  
-        +Math.round(((DQSNow-DQSYClose)/DQSYClose*100)*100)/100  
-        + " %"+"</font>"  
-    );  
-    /*道琼斯End*/  
-    //setTimeout(loadScript('AjaxDataDQS',AjaxDataDQSUrl,showAjaxDataDQS),refreshTime);  
+// function showAjaxDataDQS(){  
+//     if(!DataDQS){return;}  
+//     var refreshTime = 10000;  
+//     /*道琼斯Start*/  
+//     var DQSData = DataDQS.quotation[0].split(",");  
+//     var DQSOpen = DQSData[4];  
+//     var DQSLow = DQSData[7];  
+//     var DQSHigh = DQSData[6];  
+//     var DQSNow = DQSData[5];  
+//     var DQSYClose = DQSData[3];  
+//     var DQSClass = DQSNow>DQSYClose?"colorRed":(DQSNow<DQSYClose?"colorGreen":"colorGray");  
+//     var DQSOClass = DQSOpen>DQSYClose?"colorRed":(DQSOpen<DQSYClose?"colorGreen":"colorGray");  
+//     var DQSLClass = DQSLow>DQSYClose?"colorRed":(DQSLow<DQSYClose?"colorGreen":"colorGray");  
+//     var DQSHClass = DQSHigh>DQSYClose?"colorRed":(DQSHigh<DQSYClose?"colorGreen":"colorGray");  
+//     $('.DQSnowO').html("开盘： <font class='bold "+DQSOClass+"'>"+DQSOpen+"</font>");  
+//     $('.DQSnowL').html("最低： <font class='bold "+DQSLClass+"'>"+DQSLow+"</font>");  
+//     $('.DQSnowH').html("最高： <font class='bold "+DQSHClass+"'>"+DQSHigh+"</font>");  
+//     $('.DQSnowYC').html("昨收： <font class='bold colorGray'>"+DQSYClose+"</font>");  
+//     $('.DQSnowN').html("现价： <font class='bold "+DQSClass+"'>"+DQSNow+"</font>");  
+//     $('.DQSnowV').html(  
+//         "涨跌额： <font class='bold "+DQSClass+"'>"  
+//         +Math.round((DQSNow-DQSYClose)*100)/100  
+//         +"</font>"  
+//     );  
+//     $('.DQSnowP').html(  
+//         "涨跌幅： <font class='bold "+DQSClass+"'>"  
+//         +Math.round(((DQSNow-DQSYClose)/DQSYClose*100)*100)/100  
+//         + " %"+"</font>"  
+//     );  
+//     /*道琼斯End*/  
+//     //setTimeout(loadScript('AjaxDataDQS',AjaxDataDQSUrl,showAjaxDataDQS),refreshTime);  
   
-    // img data  
-    /*道琼斯*/  
-    $('.DQSpicTime').attr("src","http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Picture/INDU7Rs.png?dt="+new Date().getTime());  
-    $('.DQSpicDay').attr("src","http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Index.aspx?imagetype=KS&id=INDU7&UnitWidth=&Reference=xml&dt="+new Date().getTime());         
-} 
+//     // img data  
+//     /*道琼斯*/  
+//     $('.DQSpicTime').attr("src","http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Picture/INDU7Rs.png?dt="+new Date().getTime());  
+//     $('.DQSpicDay').attr("src","http://hqgjgppic.eastmoney.com/EM_Quote2010PictureProducter/Index.aspx?imagetype=KS&id=INDU7&UnitWidth=&Reference=xml&dt="+new Date().getTime());         
+// } 
 
 function showAjaxDataNSDK(){  
     if(!DataNSDK){return;}  
